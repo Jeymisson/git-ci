@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import GitHubClient from './GitHubClient'
 import PullRequests from './PullRequests'
+import { ParameterizedContext } from 'koa'
 
 export default class GithubHandler {
   
-  public static async handlePullRequest(ctx: any): Promise<void> {
+  public static async handlePullRequest(ctx: ParameterizedContext): Promise<void> {
     console.log('Handle pull request')
 
     const pullRequest = ctx.request.body
+    console.log('ctx.request.body', JSON.stringify(ctx.request.body, null, 2))
 
     const title = pullRequest.title
     console.log('Got PR with title: ', pullRequest.title)
