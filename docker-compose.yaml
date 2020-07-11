@@ -1,7 +1,9 @@
 version: '3.1'
 services :
   node:
-    image: ./Dockerfile
+    build: .
+    ports:
+      - "8080:8080"
     environment:
       GITHUB_ACCESS_TOKEN: xpto
       WEBHOOK_SECRET: xpto1
