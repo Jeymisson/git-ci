@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 
-const gitHubCredentials = {
-  accessTokenKey: process.env.GITHUB_ACCESS_TOKEN,
+export const gitHubCredentials = {
+  accessTokenKey: process.env.GITHUB_PERSONAL_TOKEN,
   webHookSecret: process.env.WEBHOOK_SECRET
 }
 
@@ -9,14 +9,13 @@ export default class GitHubClient {
 
   private static instance: GitHubClient
 
-  private baseURL: 'https://api.github.com'
-
+  private url: 'https://api.github.com'
   public http: AxiosInstance
 
   constructor(){
     this.http = axios.create(
       {
-        baseURL: this.baseURL,
+        url: this.url,
         headers: {
           Authorization: gitHubCredentials.accessTokenKey,
         }
@@ -30,4 +29,5 @@ export default class GitHubClient {
     }
     return this.instance
   }
+
 }

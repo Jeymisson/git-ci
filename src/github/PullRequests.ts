@@ -6,16 +6,26 @@ interface Repo {
   owner: unknown;
 }
 
+interface User {
+  login: string
+}
+
+interface Repository {
+  owner: User
+  name: string
+}
+
 export interface PullRequest {
-  id: number;
-  url: string;
-  number: number;
-  title: string;
-  body: string;
-  owner: string;
-  repo: Repo;
-  state: string;
-  base: unknown;
+  id: number
+  name: string
+  url: string
+  number: number
+  title: string
+  body: string
+  user: User
+  state: string
+  repository: Repository
+  base: unknown
 }
 
 export default class PullRequests {
@@ -34,7 +44,10 @@ export default class PullRequests {
   }
 
   public async edit(pullRequest: PullRequest): Promise<PullRequest> {
-    const route = this.routes.pullRequest(pullRequest.owner, pullRequest.repo.name, pullRequest.number)
+    console.log('Calling > ' + this.routes.pullRequest(
+      pullRequest.repository.owner.login, pullRequest.repository.name, pullRequest.number))
+    const route = this.routes.pullRequest(
+      pullRequest.repository.owner.login, pullRequest.repository.name, pullRequest.number)
     return this.client.http.patch(route, {
       title: pullRequest.title,
       body: pullRequest.body,
@@ -42,4 +55,5 @@ export default class PullRequests {
       base: pullRequest.base
     })
   }
+
 }
