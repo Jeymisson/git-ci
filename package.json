@@ -1,0 +1,47 @@
+{
+  "name": "koa-git-ci",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/server.js",
+  "scripts": {
+    "watch-server": "nodemon --watch src -e ts,tsx --exec ts-node src/server.ts",
+    "build-ts": "tsc",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "serve": "node dist/server.js",
+    "build": "npm run lint && npm run build-ts",
+    "start": "npm run serve"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": "6.x.x"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "",
+  "keywords": [
+    "typescript",
+    "koa",
+    "koa2"
+  ],
+  "repository": "",
+  "devDependencies": {
+    "@types/koa": "2.0.49",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-helmet": "^3.1.2",
+    "@types/koa__router": "^8.0.2",
+    "@types/node": "^12.12.6",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "eslint": "^6.8.0",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@koa/router": "^8.0.8",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-helmet": "^5.2.0"
+  }
+}

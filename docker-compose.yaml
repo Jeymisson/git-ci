@@ -1,0 +1,7 @@
+version: '3.1'
+services :
+  node:
+    image: ./Dockerfile
+    environment:
+      GITHUB_ACCESS_TOKEN: xpto
+      WEBHOOK_SECRET: xpto1
