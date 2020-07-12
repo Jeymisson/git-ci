@@ -9,15 +9,15 @@ export default class GitHubClient {
 
   private static instance: GitHubClient
 
-  private url: 'https://api.github.com'
+  private url: 'https://api.github.com/'
   public http: AxiosInstance
 
   constructor(){
     this.http = axios.create(
       {
-        url: this.url,
+        baseURL: this.url,
         headers: {
-          Authorization: gitHubCredentials.accessTokenKey,
+          Authorization: `token ${gitHubCredentials.accessTokenKey}`,
         }
       }
     )

@@ -33,8 +33,8 @@ export default class GithubHandler {
           pullRequest.title = newTitle
 
           const pullRequests = new PullRequests(githubClient)
-
-          console.log('Edit Response >>' + (await pullRequests.edit(pullRequest)))
+          const editResponse = await pullRequests.edit(pullRequest)
+          console.log('Edit Response >>' + editResponse.data.title)
           break
       }
     }

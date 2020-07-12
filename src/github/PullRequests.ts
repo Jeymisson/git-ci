@@ -1,10 +1,5 @@
 import GitHubClient from './GitHubClient'
-
-interface Repo {
-  id: number;
-  name: string;
-  owner: unknown;
-}
+import { AxiosResponse } from 'axios'
 
 interface User {
   login: string
@@ -24,7 +19,6 @@ export interface PullRequest {
   body: string
   user: User
   state: string
-  repository: Repository
   base: unknown
 }
 
@@ -43,16 +37,12 @@ export default class PullRequests {
     return this.client.http.get(this.routes.pullRequest(repoOwner, repoName, prNumber))
   }
 
-  public async edit(pullRequest: PullRequest): Promise<PullRequest> {
-    console.log('Calling > ' + this.routes.pullRequest(
-      pullRequest.repository.owner.login, pullRequest.repository.name, pullRequest.number))
-    const route = this.routes.pullRequest(
-      pullRequest.repository.owner.login, pullRequest.repository.name, pullRequest.number)
-    return this.client.http.patch(route, {
+  public async edit(pullRequest: PullRequest): Promise<AxiosResponse<PullRequest>> {
+    console.log('Calling > ' + pullRequest.url)
+    return this.client.http.patch(pullRequest.url, {
       title: pullRequest.title,
       body: pullRequest.body,
-      state: pullRequest.state,
-      base: pullRequest.base
+      state: pullRequest.state
     })
   }
 

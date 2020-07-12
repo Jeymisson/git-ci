@@ -7,9 +7,9 @@
     "watch-server": "nodemon --watch src -e ts,tsx --exec ts-node src/server.ts",
     "build-ts": "tsc",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "serve": "node dist/server.js",
+    "server": "node dist/server.js",
     "build": "npm run lint && npm run build-ts",
-    "start": "npm run serve"
+    "start": "npm run server"
   },
   "engines": {
     "node": ">=10",
@@ -40,6 +40,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "koa": "^2.13.0",
-    "koa-bodyparser": "^4.3.0"
+    "koa-bodyparser": "^4.3.0",
+    "nodemon": "^2.0.4"
   }
 }
