@@ -3,14 +3,14 @@ import PullRequests from './PullRequests'
 import { ParameterizedContext } from 'koa'
 import { X_HUB_SIGNATURE } from './Headers'
 import { isValidHook } from './utils'
-import { GitHubWebHookAction } from './GitHubWebHook'
+import { GitHubWebHookAction, GitHubWebHook } from './GitHubWebHook'
 
 export default class GithubHandler {
   public static async handlePullRequest(ctx: ParameterizedContext): Promise<void> {
     console.debug('Handle pull request')
     const githubClient = GitHubClient.getInstance()
 
-    const gitHook = ctx.request.body
+    const gitHook: GitHubWebHook = ctx.request.body
 
     if (!isValidHook(gitHook, ctx.get(X_HUB_SIGNATURE))) {
       ctx.status = 403
