@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import GitHubClient from './GitHubClient'
 import PullRequests from './PullRequests'
 import { ParameterizedContext } from 'koa'
 import { X_HUB_SIGNATURE } from './Headers'
 import { isValidHook } from './utils'
+import { GitHubWebHookAction } from './GitHubWebHook'
 
 export default class GithubHandler {
   public static async handlePullRequest(ctx: ParameterizedContext): Promise<void> {
-    console.log('Handle pull request')
+    console.debug('Handle pull request')
     const githubClient = GitHubClient.getInstance()
 
     const gitHook = ctx.request.body
@@ -19,14 +19,11 @@ export default class GithubHandler {
 
     const pullRequest = gitHook.pull_request
     if (pullRequest) {
-      console.log('payload: ' + JSON.stringify(gitHook))
+      console.debug('payload: ' + JSON.stringify(gitHook))
       switch (gitHook.action) {
-        case 'opened':
-          console.log('Got PR with title: ', pullRequest.title)
-          break
-        case 'reopened':
+        case GitHubWebHookAction.opened:
           const title = pullRequest.title
-          console.log('Got PR with title: ', pullRequest.title)
+          console.debug('Got PR with title: ', pullRequest.title)
 
           const newTitle = `${title} (looks pretty legit)`
 
@@ -34,8 +31,11 @@ export default class GithubHandler {
 
           const pullRequests = new PullRequests(githubClient)
           const editResponse = await pullRequests.edit(pullRequest)
-          console.log('Edit Response >>' + editResponse.data.title)
+          console.log('Title updated to: ' + editResponse.data.title)
           break
+          case GitHubWebHookAction.reopened:
+            console.log('Got PR with title: ', pullRequest.title)
+            break
       }
     }
 

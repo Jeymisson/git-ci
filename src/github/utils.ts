@@ -10,8 +10,7 @@ export function isValidHook(payload: any, webHookSecret: string): boolean {
   const hmac = crypto.createHmac('sha1', gitHubCredentials.webHookSecret)
   hmac.update(JSON.stringify(payload))
   const hmacDigest = hmac.digest('hex')
-  console.log(`curr header: ${gitHubCredentials.webHookSecret}`)
-  console.log(`curr header digest: ${hmacDigest}`)
-  console.log(`in header: ${webHookSecret}`)
+  console.debug(`curr header digest: ${hmacDigest}`)
+  console.debug(`in header: ${webHookSecret}`)
   return `sha1=${hmacDigest}` === webHookSecret
 }

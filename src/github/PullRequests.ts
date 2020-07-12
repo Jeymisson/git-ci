@@ -1,14 +1,7 @@
 import GitHubClient from './GitHubClient'
 import { AxiosResponse } from 'axios'
+import { User } from './GitHubWebHook'
 
-interface User {
-  login: string
-}
-
-interface Repository {
-  owner: User
-  name: string
-}
 
 export interface PullRequest {
   id: number
