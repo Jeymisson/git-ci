@@ -3,7 +3,7 @@ import PullRequests from './PullRequests'
 import { ParameterizedContext } from 'koa'
 import { X_HUB_SIGNATURE } from './Headers'
 import { isValidHook } from './utils'
-import { GitHubWebHookAction, GitHubWebHook } from './GitHubWebHook'
+import { GitHubWebHook } from './GitHubWebHook'
 
 export default class GithubHandler {
   public static async handlePullRequest(ctx: ParameterizedContext): Promise<void> {
@@ -21,7 +21,7 @@ export default class GithubHandler {
     if (pullRequest) {
       console.debug('payload: ' + JSON.stringify(gitHook))
       switch (gitHook.action) {
-        case GitHubWebHookAction.opened:
+        case 'opened':
           const title = pullRequest.title
           console.debug('Got PR with title: ', pullRequest.title)
 
@@ -33,7 +33,7 @@ export default class GithubHandler {
           const editResponse = await pullRequests.edit(pullRequest)
           console.log('Title updated to: ' + editResponse.data.title)
           break
-          case GitHubWebHookAction.reopened:
+          case 'reopened':
             console.log('Got PR with title: ', pullRequest.title)
             break
       }

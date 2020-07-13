@@ -26,7 +26,7 @@ export default class PullRequests {
     this.client = client
   }
 
-  public async getPullRequest(repoOwner: string, repoName: string, prNumber: number): Promise<PullRequest> {
+  public async getPullRequest(repoOwner: string, repoName: string, prNumber: number): Promise<AxiosResponse<PullRequest>> {
     return this.client.http.get(this.routes.pullRequest(repoOwner, repoName, prNumber))
   }
 

@@ -10,14 +10,8 @@ export interface Repository {
   name: string
 }
 
-export enum GitHubWebHookAction {
-  opened,
-  reopened,
-  closed
-}
-
 export interface GitHubWebHook {
-  action: GitHubWebHookAction
+  action: 'opened' | 'reopened' | 'closed'
   number: number
   pull_request: PullRequest
   repository: Repository
